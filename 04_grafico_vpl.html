@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico VPL x Taxa</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            color: #2a5298;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">📈 Projeto Energia Solar: VPL x Taxa de Desconto</div>
+        <div class="chart-container">
+            <canvas id="tirChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('tirChart').getContext('2d');
+        
+        function calcularVPL(r) {
+            return -150000 + 45000/(1+r) + 55000/Math.pow(1+r, 2) + 65000/Math.pow(1+r, 3) + 75000/Math.pow(1+r, 4);
+        }
+        
+        const taxas = [];
+        const vpls = [];
+        
+        for (let i = 0; i <= 35; i += 0.5) {
+            const r = i / 100;
+            const vpl = calcularVPL(r);
+            taxas.push(i);
+            vpls.push(vpl);
+        }
+        
+        const pontosEspeciais = [
+            {x: 12, y: 32847, label: 'VPL(12%) = R$ 32.847'},
+            {x: 22.4, y: 0, label: 'TIR = 22,4%'}
+        ];
+        
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: taxas,
+                datasets: [{
+                    label: 'VPL (R$)',
+                    data: vpls,
+                    borderColor: '#2a5298',
+                    backgroundColor: 'rgba(42, 82, 152, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return `Taxa: ${context[0].label}%`;
+                            },
+                            label: function(context) {
+                                return `VPL: R$ ${context.parsed.y.toLocaleString('pt-BR')}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Taxa de Desconto (%)',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        max: 30
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'VPL (R$)',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return 'R$ ' + value.toLocaleString('pt-BR');
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [{
+                afterDatasetsDraw: function(chart) {
+                    const ctx = chart.ctx;
+                    
+                    // Linha horizontal no zero
+                    ctx.save();
+                    ctx.strokeStyle = '#6c757d';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(chart.chartArea.left, chart.scales.y.getPixelForValue(0));
+                    ctx.lineTo(chart.chartArea.right, chart.scales.y.getPixelForValue(0));
+                    ctx.stroke();
+                    ctx.restore();
+                    
+                    // Pontos especiais
+                    pontosEspeciais.forEach(ponto => {
+                        const x = chart.scales.x.getPixelForValue(ponto.x);
+                        const y = chart.scales.y.getPixelForValue(ponto.y);
+                        
+                        // Ponto
+                        ctx.save();
+                        ctx.fillStyle = ponto.x === 22.4 ? '#ff6b6b' : '#28a745';
+                        ctx.strokeStyle = '#fff';
+                        ctx.lineWidth = 3;
+                        ctx.beginPath();
+                        ctx.arc(x, y, 10, 0, 2 * Math.PI);
+                        ctx.fill();
+                        ctx.stroke();
+                        
+                        // Linha vertical pontilhada
+                        ctx.strokeStyle = ponto.x === 22.4 ? '#ff6b6b' : '#28a745';
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([3, 3]);
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x, chart.chartArea.bottom);
+                        ctx.stroke();
+                        
+                        // Label
+                        ctx.fillStyle = '#2a5298';
+                        ctx.font = 'bold 14px Arial';
+                        ctx.textAlign = 'center';
+                        const labelY = ponto.y > 20000 ? y - 25 : y + 30;
+                        ctx.fillText(ponto.label, x, labelY);
+                        
+                        ctx.restore();
+                    });
+                }
+            }]
+        });
+    </script>
+</body>
+</html>

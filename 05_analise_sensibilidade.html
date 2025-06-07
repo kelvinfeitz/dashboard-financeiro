@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Sensibilidade</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            color: #2a5298;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .comparison-table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1em;
+        }
+        .comparison-table th {
+            background: #2a5298;
+            color: white;
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .comparison-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        .comparison-table tr:nth-child(4) {
+            background: #fff3cd !important;
+        }
+        .excellent { color: #198754; font-weight: 600; }
+        .viable { color: #198754; font-weight: 600; }
+        .marginal { color: #ffc107; font-weight: 600; }
+        .tir { color: #6c757d; font-weight: 600; }
+        .unviable { color: #dc3545; font-weight: 600; }
+        
+        .rate { font-weight: bold; font-size: 1.1em; }
+        .vpl-positive { color: #198754; font-weight: 600; }
+        .vpl-negative { color: #dc3545; font-weight: 600; }
+        .vpl-zero { color: #6c757d; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">🔍 Análise de Sensibilidade</div>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Taxa de Desconto</th>
+                        <th>VPL (R$)</th>
+                        <th>Decisão</th>
+                        <th>Contexto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rate">8%</td>
+                        <td class="vpl-positive">+R$ 61.438</td>
+                        <td class="excellent">✅ EXCELENTE</td>
+                        <td>Cenário ideal - juros baixos</td>
+                    </tr>
+                    <tr>
+                        <td class="rate">12%</td>
+                        <td class="vpl-positive">+R$ 32.847</td>
+                        <td class="viable">✅ VIÁVEL</td>
+                        <td>WACC típico do setor</td>
+                    </tr>
+                    <tr>
+                        <td class="rate">18%</td>
+                        <td class="vpl-positive">+R$ 5.127</td>
+                        <td class="marginal">⚠️ MARGINAL</td>
+                        <td>Alto risco / crise</td>
+                    </tr>
+                    <tr>
+                        <td class="rate">22,4%</td>
+                        <td class="vpl-zero">R$ 0</td>
+                        <td class="tir">🎯 TIR</td>
+                        <td>Ponto de equilíbrio</td>
+                    </tr>
+                    <tr>
+                        <td class="rate">25%</td>
+                        <td class="vpl-negative">-R$ 8.924</td>
+                        <td class="unviable">❌ INVIÁVEL</td>
+                        <td>Custo capital excessivo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

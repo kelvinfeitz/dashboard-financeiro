@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights Estratégicos</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: #2a5298;
+            margin-bottom: 40px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .insight-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #2a5298;
+            transition: transform 0.2s;
+        }
+        .insight-card:hover {
+            transform: translateY(-5px);
+        }
+        .insight-card h3 {
+            margin: 0 0 20px 0;
+            color: #2a5298;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        .insight-card p {
+            margin: 0;
+            color: #6c757d;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 3px 7px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #2a5298;
+        }
+        .icon {
+            font-size: 1.4em;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">💡 Insights Estratégicos</div>
+        
+        <div class="insights-grid">
+            <div class="insight-card">
+                <h3><span class="icon">🎯</span>Estratégia de Decisão</h3>
+                <p><strong>TIR de 22,4%</strong> oferece margem robusta sobre o WACC típico de 12%. Projeto mantém viabilidade mesmo em cenários adversos até 22%.</p>
+            </div>
+            
+            <div class="insight-card">
+                <h3><span class="icon">💰</span>Retorno do Investimento</h3>
+                <p>Investimento de <span class="highlight">R$ 150.000</span> gera <span class="highlight">R$ 32.847</span> de valor presente. ROI de 22% em valor presente líquido.</p>
+            </div>
+            
+            <div class="insight-card">
+                <h3><span class="icon">📈</span>Análise de Risco</h3>
+                <p>Projeto resiliente: mantém VPL positivo até taxa de 18%. Margem de segurança de 10,4 p.p. sobre WACC de 12%.</p>
+            </div>
+            
+            <div class="insight-card">
+                <h3><span class="icon">⚡</span>Payback Descontado</h3>
+                <p>Considerando WACC de 12%, o payback descontado ocorre entre o 3º e 4º ano, demonstrando recuperação eficiente do capital.</p>
+            </div>
+            
+            <div class="insight-card">
+                <h3><span class="icon">🌱</span>Sustentabilidade</h3>
+                <p>Além do retorno financeiro, o projeto de energia solar agrega valor ESG, reduzindo custos operacionais e pegada de carbono.</p>
+            </div>
+            
+            <div class="insight-card">
+                <h3><span class="icon">📊</span>Benchmarking</h3>
+                <p>TIR de 22,4% supera significativamente a média do setor industrial (15-18%), posicionando o projeto como oportunidade premium.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

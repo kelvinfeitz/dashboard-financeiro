@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo TIR</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid #e9ecef;
+        }
+        .header {
+            text-align: center;
+            color: #2a5298;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .timeline-item {
+            text-align: center;
+            position: relative;
+            flex: 1;
+        }
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -15%;
+            width: 30%;
+            height: 2px;
+            background: #2a5298;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        .timeline-period {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2a5298;
+            margin-bottom: 8px;
+        }
+        .timeline-value {
+            font-size: 1.1em;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+        .negative { 
+            background: #ffe6e6; 
+            color: #d63384; 
+        }
+        .positive { 
+            background: #e6ffe6; 
+            color: #198754; 
+        }
+        .formula {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #2a5298;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .result-box {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+        .result-box h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.4em;
+            font-weight: 300;
+        }
+        .result-box .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .result-box p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">🎯 Cálculo da TIR</div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-period">Ano 0</div>
+                <div class="timeline-value negative">-R$ 150.000</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-period">Ano 1</div>
+                <div class="timeline-value positive">+R$ 45.000</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-period">Ano 2</div>
+                <div class="timeline-value positive">+R$ 55.000</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-period">Ano 3</div>
+                <div class="timeline-value positive">+R$ 65.000</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-period">Ano 4</div>
+                <div class="timeline-value positive">+R$ 75.000</div>
+            </div>
+        </div>
+        
+        <div class="formula">
+            VPL(r) = 0<br>
+            -150.000 + 45.000/(1+r) + 55.000/(1+r)² +<br>
+            65.000/(1+r)³ + 75.000/(1+r)⁴ = 0
+        </div>
+        
+        <div class="result-box">
+            <h3>Taxa Interna de Retorno</h3>
+            <div class="value">22,4%</div>
+            <p>Ponto onde VPL = 0</p>
+        </div>
+    </div>
+</body>
+</html>
